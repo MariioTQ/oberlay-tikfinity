@@ -12,19 +12,53 @@ body {
 }
 
 /* ========================= */
+/* CAJAS EDITABLES */
+/* ========================= */
+
+.box {
+  position: absolute;
+  border: 2px solid red;
+  resize: both;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* barra superior */
+.handle-top {
+  height: 20px;
+  background: rgba(255,0,0,0.6);
+  cursor: move;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  line-height: 20px;
+  user-select: none;
+}
+
+/* barra inferior */
+.handle-bottom {
+  height: 20px;
+  background: rgba(255,0,0,0.6);
+  cursor: move;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  line-height: 20px;
+  user-select: none;
+}
+
+/* ========================= */
 /* CHAT AGRANDADO */
 /* ========================= */
 
 #chatBox {
-  position: absolute;
   left: -7px;
   top: 275px;
   width: 1105px;
   height: 832px;
-  overflow: hidden;
 }
 
-#chatBox iframe {
+#chatFrame {
   width: 160%;
   height: 160%;
   border: none;
@@ -32,39 +66,35 @@ body {
   transform-origin: top left;
 }
 
-
 /* ========================= */
 /* VIEWERS */
 /* ========================= */
 
 #viewersBox {
-  position: absolute;
   left: 898px;
   top: 1px;
   width: 220px;
   height: 90px;
 }
 
-#viewersBox iframe {
+#viewersFrame {
   width: 100%;
   height: 100%;
   border: none;
 }
-
 
 /* ========================= */
 /* ACTIVITY */
 /* ========================= */
 
 #giftsBox {
-  position: absolute;
   left: -2px;
   top: -236px;
   width: 901px;
   height: 567px;
 }
 
-#giftsBox iframe {
+#giftsFrame {
   width: 100%;
   height: 100%;
   border: none;
@@ -75,20 +105,90 @@ body {
 
 <body>
 
-<div id="chatBox">
-  <iframe src="https://tikfinity.zerody.one/widget/chat?cid=2833538"></iframe>
+<!-- CHAT (barra arriba) -->
+<div class="box" id="chatBox">
+
+  <div class="handle-top">CHAT</div>
+
+  <iframe id="chatFrame"
+  src="https://tikfinity.zerody.one/widget/chat?cid=2833538">
+  </iframe>
+
 </div>
 
-<div id="viewersBox">
-  <iframe src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538"></iframe>
+
+<!-- VIEWERS (barra abajo) -->
+<div class="box" id="viewersBox">
+
+  <iframe id="viewersFrame"
+  src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538">
+  </iframe>
+
+  <div class="handle-bottom">VIEWERS</div>
+
 </div>
 
-<div id="giftsBox">
-  <iframe src="https://tikfinity.zerody.one/widget/gifts?cid=2833538"></iframe>
+
+<!-- ACTIVITY (barra abajo) -->
+<div class="box" id="giftsBox">
+
+  <iframe id="giftsFrame"
+  src="https://tikfinity.zerody.one/widget/gifts?cid=2833538">
+  </iframe>
+
+  <div class="handle-bottom">ACTIVITY</div>
+
 </div>
+
+
+<script>
+
+/* sistema de movimiento */
+
+document.querySelectorAll(".box").forEach(box => {
+
+  const handle =
+    box.querySelector(".handle-top") ||
+    box.querySelector(".handle-bottom");
+
+  let isDown = false;
+  let offsetX, offsetY;
+
+  handle.addEventListener("mousedown", e => {
+
+    isDown = true;
+
+    offsetX = e.clientX - box.offsetLeft;
+    offsetY = e.clientY - box.offsetTop;
+
+    document.body.style.userSelect = "none";
+
+  });
+
+  document.addEventListener("mouseup", () => {
+
+    isDown = false;
+
+    document.body.style.userSelect = "auto";
+
+  });
+
+  document.addEventListener("mousemove", e => {
+
+    if (!isDown) return;
+
+    box.style.left = (e.clientX - offsetX) + "px";
+    box.style.top = (e.clientY - offsetY) + "px";
+
+  });
+
+});
+
+</script>
 
 </body>
 </html>
+
 
 
 
