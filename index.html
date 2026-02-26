@@ -11,28 +11,38 @@ body {
   overflow: hidden;
 }
 
-/* CHAT */
+/* ========================= */
+/* CHAT AGRANDADO */
+/* ========================= */
+
 #chatBox {
   position: absolute;
   left: -7px;
   top: 275px;
   width: 1105px;
   height: 832px;
+  overflow: hidden;
 }
 
 #chatBox iframe {
-  width: 100%;
-  height: 100%;
+  width: 160%;
+  height: 160%;
   border: none;
+  transform: scale(1.6);
+  transform-origin: top left;
 }
 
+
+/* ========================= */
 /* VIEWERS */
+/* ========================= */
+
 #viewersBox {
   position: absolute;
   left: 898px;
   top: 1px;
-  width: 200px;
-  height: 80px;
+  width: 220px;
+  height: 90px;
 }
 
 #viewersBox iframe {
@@ -41,7 +51,11 @@ body {
   border: none;
 }
 
+
+/* ========================= */
 /* ACTIVITY */
+/* ========================= */
+
 #giftsBox {
   position: absolute;
   left: -2px;
@@ -75,5 +89,6 @@ body {
 
 </body>
 </html>
+
 
 
