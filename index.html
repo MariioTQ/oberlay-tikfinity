@@ -19,15 +19,14 @@ body {
   overflow: hidden;
 }
 
-/* iframe ocupa todo menos la barra inferior */
+/* iframe base */
 iframe {
   width: 100%;
-  height: calc(100% - 20px);
   border: none;
 }
 
-/* barra de agarre inferior */
-.handle {
+/* barra superior */
+.handle-top {
   height: 20px;
   background: rgba(255,0,0,0.6);
   cursor: move;
@@ -36,6 +35,28 @@ iframe {
   text-align: center;
   line-height: 20px;
   user-select: none;
+}
+
+/* barra inferior */
+.handle-bottom {
+  height: 20px;
+  background: rgba(255,0,0,0.6);
+  cursor: move;
+  font-size: 12px;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  user-select: none;
+}
+
+/* chat iframe (barra arriba) */
+.chat-frame {
+  height: calc(100% - 20px);
+}
+
+/* otros iframes (barra abajo) */
+.normal-frame {
+  height: calc(100% - 20px);
 }
 
 /* posiciones iniciales */
@@ -65,26 +86,35 @@ iframe {
 
 <body>
 
+<!-- CHAT (barra arriba) -->
 <div class="box" id="chatBox">
-  <iframe src="https://tikfinity.zerody.one/widget/chat?cid=2833538"></iframe>
-  <div class="handle">CHAT</div>
+  <div class="handle-top">CHAT</div>
+  <iframe class="chat-frame"
+  src="https://tikfinity.zerody.one/widget/chat?cid=2833538"></iframe>
 </div>
 
+<!-- VIEWERS (barra abajo) -->
 <div class="box" id="viewersBox">
-  <iframe src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538"></iframe>
-  <div class="handle">VIEWERS</div>
+  <iframe class="normal-frame"
+  src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538"></iframe>
+  <div class="handle-bottom">VIEWERS</div>
 </div>
 
+<!-- ACTIVITY (barra abajo) -->
 <div class="box" id="giftsBox">
-  <iframe src="https://tikfinity.zerody.one/widget/gifts?cid=2833538"></iframe>
-  <div class="handle">ACTIVITY</div>
+  <iframe class="normal-frame"
+  src="https://tikfinity.zerody.one/widget/gifts?cid=2833538"></iframe>
+  <div class="handle-bottom">ACTIVITY</div>
 </div>
 
 <script>
 
 document.querySelectorAll(".box").forEach(box => {
 
-  const handle = box.querySelector(".handle");
+  const handleTop = box.querySelector(".handle-top");
+  const handleBottom = box.querySelector(".handle-bottom");
+
+  const handle = handleTop || handleBottom;
 
   let offsetX, offsetY, isDown = false;
 
@@ -119,3 +149,4 @@ document.querySelectorAll(".box").forEach(box => {
 
 </body>
 </html>
+
