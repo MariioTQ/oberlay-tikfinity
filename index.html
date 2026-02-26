@@ -11,20 +11,13 @@ background:transparent;
 overflow:hidden;
 }
 
-
 /* contenedores */
 
 .box{
 position:absolute;
 overflow:hidden;
 z-index:10;
-cursor:grab;
 }
-
-.box:active{
-cursor:grabbing;
-}
-
 
 /* ========================= */
 /* CHAT */
@@ -38,6 +31,22 @@ top:198px;
 width:935px;
 height:729px;
 
+}
+
+/* capa invisible para arrastrar */
+#dragLayer{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:20;
+cursor:grab;
+background:rgba(0,0,0,0);
+}
+
+#dragLayer:active{
+cursor:grabbing;
 }
 
 .chat-frame{
@@ -68,11 +77,9 @@ height:81px;
 }
 
 .normal-frame{
-
 width:100%;
 height:100%;
 border:none;
-
 }
 
 
@@ -95,7 +102,7 @@ height:594px;
 <body>
 
 
-<!-- CHAT (movible en vivo) -->
+<!-- CHAT -->
 
 <div class="box" id="chatBox">
 
@@ -103,11 +110,13 @@ height:594px;
 src="https://tikfinity.zerody.one/widget/chat?cid=2833538">
 </iframe>
 
+<div id="dragLayer"></div>
+
 </div>
 
 
 
-<!-- VIEWERS (fijo) -->
+<!-- VIEWERS -->
 
 <div class="box" id="viewersBox">
 
@@ -119,7 +128,7 @@ src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538">
 
 
 
-<!-- ACTIVITY (fijo) -->
+<!-- ACTIVITY -->
 
 <div class="box" id="giftsBox">
 
@@ -133,15 +142,14 @@ src="https://tikfinity.zerody.one/widget/gifts?cid=2833538">
 
 <script>
 
-/* mover chat en tiempo real */
-
 const chatBox = document.getElementById("chatBox");
+const dragLayer = document.getElementById("dragLayer");
 
 let isDragging = false;
 let startX, startY;
 let initialLeft, initialTop;
 
-chatBox.addEventListener("mousedown", (e) => {
+dragLayer.addEventListener("mousedown", (e) => {
 
   isDragging = true;
 
@@ -178,6 +186,7 @@ document.addEventListener("mousemove", (e) => {
 
 </body>
 </html>
+
 
 
 
