@@ -11,7 +11,7 @@ background:transparent;
 overflow:hidden;
 }
 
-/* contenedores */
+/* contenedor */
 
 .box{
 position:absolute;
@@ -33,21 +33,7 @@ height:729px;
 
 }
 
-/* capa invisible para arrastrar */
-#dragLayer{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:20;
-cursor:grab;
-background:rgba(0,0,0,0);
-}
-
-#dragLayer:active{
-cursor:grabbing;
-}
+/* iframe */
 
 .chat-frame{
 
@@ -61,19 +47,46 @@ border:none;
 
 }
 
+/* capa para mover */
+
+#dragLayer{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+cursor:grab;
+z-index:20;
+background:transparent;
+}
+
+#dragLayer:active{
+cursor:grabbing;
+}
+
+/* esquina para redimensionar */
+
+#resizeHandle{
+position:absolute;
+width:20px;
+height:20px;
+right:0;
+bottom:0;
+background:rgba(255,0,0,0.8);
+cursor:nwse-resize;
+z-index:30;
+}
+
 
 /* ========================= */
 /* VIEWERS */
 /* ========================= */
 
 #viewersBox{
-
 left:723px;
 top:0px;
-
 width:185px;
 height:81px;
-
 }
 
 .normal-frame{
@@ -88,13 +101,10 @@ border:none;
 /* ========================= */
 
 #giftsBox{
-
 left:-9px;
 top:-323px;
-
 width:723px;
 height:594px;
-
 }
 
 </style>
@@ -111,74 +121,106 @@ src="https://tikfinity.zerody.one/widget/chat?cid=2833538">
 </iframe>
 
 <div id="dragLayer"></div>
+<div id="resizeHandle"></div>
 
 </div>
-
 
 
 <!-- VIEWERS -->
 
 <div class="box" id="viewersBox">
-
 <iframe class="normal-frame"
 src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538">
 </iframe>
-
 </div>
-
 
 
 <!-- ACTIVITY -->
 
 <div class="box" id="giftsBox">
-
 <iframe class="normal-frame"
 src="https://tikfinity.zerody.one/widget/gifts?cid=2833538">
 </iframe>
-
 </div>
-
 
 
 <script>
 
 const chatBox = document.getElementById("chatBox");
 const dragLayer = document.getElementById("dragLayer");
+const resizeHandle = document.getElementById("resizeHandle");
 
-let isDragging = false;
-let startX, startY;
-let initialLeft, initialTop;
+/* ========================= */
+/* MOVER */
+/* ========================= */
 
-dragLayer.addEventListener("mousedown", (e) => {
+let isDragging=false;
+let startX,startY;
+let startLeft,startTop;
 
-  isDragging = true;
+dragLayer.addEventListener("mousedown",(e)=>{
 
-  startX = e.clientX;
-  startY = e.clientY;
+isDragging=true;
 
-  initialLeft = chatBox.offsetLeft;
-  initialTop = chatBox.offsetTop;
+startX=e.clientX;
+startY=e.clientY;
 
-  document.body.style.userSelect = "none";
+startLeft=chatBox.offsetLeft;
+startTop=chatBox.offsetTop;
 
-});
-
-document.addEventListener("mouseup", () => {
-
-  isDragging = false;
-  document.body.style.userSelect = "auto";
+document.body.style.userSelect="none";
 
 });
 
-document.addEventListener("mousemove", (e) => {
+document.addEventListener("mouseup",()=>{
+isDragging=false;
+isResizing=false;
+document.body.style.userSelect="auto";
+});
 
-  if (!isDragging) return;
+document.addEventListener("mousemove",(e)=>{
 
-  const deltaX = e.clientX - startX;
-  const deltaY = e.clientY - startY;
+if(isDragging){
 
-  chatBox.style.left = (initialLeft + deltaX) + "px";
-  chatBox.style.top = (initialTop + deltaY) + "px";
+let dx=e.clientX-startX;
+let dy=e.clientY-startY;
+
+chatBox.style.left=(startLeft+dx)+"px";
+chatBox.style.top=(startTop+dy)+"px";
+
+}
+
+if(isResizing){
+
+let dx=e.clientX-startX;
+let dy=e.clientY-startY;
+
+chatBox.style.width=(startWidth+dx)+"px";
+chatBox.style.height=(startHeight+dy)+"px";
+
+}
+
+});
+
+
+/* ========================= */
+/* REDIMENSIONAR */
+/* ========================= */
+
+let isResizing=false;
+let startWidth,startHeight;
+
+resizeHandle.addEventListener("mousedown",(e)=>{
+
+isResizing=true;
+
+startX=e.clientX;
+startY=e.clientY;
+
+startWidth=chatBox.offsetWidth;
+startHeight=chatBox.offsetHeight;
+
+e.stopPropagation();
 
 });
 
@@ -186,6 +228,7 @@ document.addEventListener("mousemove", (e) => {
 
 </body>
 </html>
+
 
 
 
