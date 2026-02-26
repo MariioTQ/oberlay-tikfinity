@@ -5,123 +5,139 @@
 
 <style>
 
-body {
-  margin: 0;
-  background: transparent;
-  overflow: hidden;
+body{
+margin:0;
+background:transparent;
+overflow:hidden;
 }
 
-/* caja principal */
+/* cajas */
 
-.box {
-  position: absolute;
-  border: 2px solid red;
-  resize: both;
-  overflow: hidden;
-  z-index: 10;
+.box{
+
+position:absolute;
+
+border:2px solid red;
+
+resize:both;
+
+overflow:hidden;
+
+z-index:10;
+
 }
 
-/* barra derecha del chat */
 
-.handle-right {
+/* barra derecha chat */
 
-  position: absolute;
+.handle-right{
 
-  right: 0;
-  top: 0;
+position:absolute;
 
-  width: 20px;
-  height: 100%;
+right:0;
+top:0;
 
-  background: rgba(255,0,0,0.6);
+width:20px;
+height:100%;
 
-  cursor: move;
+background:rgba(255,0,0,0.6);
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+cursor:move;
 
-  color: white;
-  font-size: 12px;
+display:flex;
+align-items:center;
+justify-content:center;
 
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
+color:white;
+font-size:12px;
 
-  user-select: none;
+writing-mode:vertical-rl;
+
+user-select:none;
+
 }
+
 
 /* barra inferior */
 
-.handle-bottom {
+.handle-bottom{
 
-  height: 20px;
-  background: rgba(255,0,0,0.6);
-  cursor: move;
-  font-size: 12px;
-  color: white;
-  text-align: center;
-  line-height: 20px;
-  user-select: none;
+height:20px;
+
+background:rgba(255,0,0,0.6);
+
+cursor:move;
+
+font-size:12px;
+
+color:white;
+
+text-align:center;
+
+line-height:20px;
+
+user-select:none;
+
 }
 
 
-/* ========================= */
-/* CHAT */
-/* ========================= */
+/* CHAT FINAL */
 
-#chatBox {
+#chatBox{
 
-  left: -14px;
-  top: -61px;
+left:-8px;
+top:195px;
 
-  width: 1200px;
-  height: 650px;
+width:1105px;
+height:747px;
+
 }
 
-.chat-frame {
+.chat-frame{
 
-  height: 100%;
-  width: 125%;
+width:125%;
+height:100%;
 
-  transform: scale(1.25);
-  transform-origin: top left;
+transform:scale(1.25);
+transform-origin:top left;
 
-  border: none;
-}
+border:none;
 
-
-/* ========================= */
-/* VIEWERS NUEVA POSICION */
-/* ========================= */
-
-#viewersBox {
-
-  left: 1169px;
-  top: -9px;
-
-  width: 180px;
-  height: 80px;
-}
-
-.normal-frame {
-
-  height: calc(100% - 20px);
-  width: 100%;
-  border: none;
 }
 
 
-/* ========================= */
-/* ACTIVITY */
-/* ========================= */
+/* VIEWERS FINAL */
 
-#giftsBox {
+#viewersBox{
 
-  left: -6px;
-  top: -229px;
+left:966px;
+top:-9px;
 
-  width: 965px;
-  height: 593px;
+width:185px;
+height:81px;
+
+}
+
+.normal-frame{
+
+width:100%;
+height:calc(100% - 20px);
+
+border:none;
+
+}
+
+
+/* ACTIVITY FINAL */
+
+#giftsBox{
+
+left:-8px;
+top:-313px;
+
+width:985px;
+height:591px;
+
 }
 
 </style>
@@ -130,15 +146,15 @@ body {
 <body>
 
 
-<!-- CHAT con barra derecha -->
+<!-- CHAT -->
 
 <div class="box" id="chatBox">
 
-  <iframe class="chat-frame"
-  src="https://tikfinity.zerody.one/widget/chat?cid=2833538">
-  </iframe>
+<iframe class="chat-frame"
+src="https://tikfinity.zerody.one/widget/chat?cid=2833538">
+</iframe>
 
-  <div class="handle-right">CHAT</div>
+<div class="handle-right">CHAT</div>
 
 </div>
 
@@ -148,11 +164,11 @@ body {
 
 <div class="box" id="viewersBox">
 
-  <iframe class="normal-frame"
-  src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538">
-  </iframe>
+<iframe class="normal-frame"
+src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538">
+</iframe>
 
-  <div class="handle-bottom">VIEWERS</div>
+<div class="handle-bottom">VIEWERS</div>
 
 </div>
 
@@ -162,11 +178,11 @@ body {
 
 <div class="box" id="giftsBox">
 
-  <iframe class="normal-frame"
-  src="https://tikfinity.zerody.one/widget/gifts?cid=2833538">
-  </iframe>
+<iframe class="normal-frame"
+src="https://tikfinity.zerody.one/widget/gifts?cid=2833538">
+</iframe>
 
-  <div class="handle-bottom">ACTIVITY</div>
+<div class="handle-bottom">ACTIVITY</div>
 
 </div>
 
@@ -174,39 +190,35 @@ body {
 
 <script>
 
-/* mover widgets */
+document.querySelectorAll(".box").forEach(box=>{
 
-document.querySelectorAll(".box").forEach(box => {
+const handle=
 
-  const handle =
-    box.querySelector(".handle-right") ||
-    box.querySelector(".handle-bottom");
+box.querySelector(".handle-right")||
+box.querySelector(".handle-bottom");
 
-  let offsetX, offsetY, isDown = false;
+let isDown=false;
+let offsetX,offsetY;
 
-  handle.addEventListener("mousedown", e => {
+handle.addEventListener("mousedown",e=>{
 
-    isDown = true;
+isDown=true;
 
-    offsetX = e.clientX - box.offsetLeft;
-    offsetY = e.clientY - box.offsetTop;
+offsetX=e.clientX-box.offsetLeft;
+offsetY=e.clientY-box.offsetTop;
 
-  });
+});
 
-  document.addEventListener("mouseup", () => {
+document.addEventListener("mouseup",()=>isDown=false);
 
-    isDown = false;
+document.addEventListener("mousemove",e=>{
 
-  });
+if(!isDown)return;
 
-  document.addEventListener("mousemove", e => {
+box.style.left=(e.clientX-offsetX)+"px";
+box.style.top=(e.clientY-offsetY)+"px";
 
-    if (!isDown) return;
-
-    box.style.left = (e.clientX - offsetX) + "px";
-    box.style.top = (e.clientY - offsetY) + "px";
-
-  });
+});
 
 });
 
