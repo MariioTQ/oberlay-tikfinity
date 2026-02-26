@@ -19,22 +19,23 @@ body {
   overflow: hidden;
 }
 
-/* barra de agarre */
-.handle {
-  height: 20px;
-  background: rgba(255,0,0,0.5);
-  cursor: move;
-  font-size: 12px;
-  color: white;
-  padding-left: 5px;
-  user-select: none;
-}
-
-/* iframe */
+/* iframe ocupa todo menos la barra inferior */
 iframe {
   width: 100%;
   height: calc(100% - 20px);
   border: none;
+}
+
+/* barra de agarre inferior */
+.handle {
+  height: 20px;
+  background: rgba(255,0,0,0.6);
+  cursor: move;
+  font-size: 12px;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  user-select: none;
 }
 
 /* posiciones iniciales */
@@ -65,18 +66,18 @@ iframe {
 <body>
 
 <div class="box" id="chatBox">
-  <div class="handle">CHAT</div>
   <iframe src="https://tikfinity.zerody.one/widget/chat?cid=2833538"></iframe>
+  <div class="handle">CHAT</div>
 </div>
 
 <div class="box" id="viewersBox">
-  <div class="handle">VIEWERS</div>
   <iframe src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538"></iframe>
+  <div class="handle">VIEWERS</div>
 </div>
 
 <div class="box" id="giftsBox">
-  <div class="handle">ACTIVITY</div>
   <iframe src="https://tikfinity.zerody.one/widget/gifts?cid=2833538"></iframe>
+  <div class="handle">ACTIVITY</div>
 </div>
 
 <script>
@@ -118,5 +119,3 @@ document.querySelectorAll(".box").forEach(box => {
 
 </body>
 </html>
-
-
