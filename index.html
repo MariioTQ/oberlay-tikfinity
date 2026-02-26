@@ -21,9 +21,37 @@ body {
   z-index: 10;
 }
 
-/* barras */
+/* barra derecha del chat */
 
-.handle-top,
+.handle-right {
+
+  position: absolute;
+
+  right: 0;
+  top: 0;
+
+  width: 20px;
+  height: 100%;
+
+  background: rgba(255,0,0,0.6);
+
+  cursor: move;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-size: 12px;
+
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+
+  user-select: none;
+}
+
+/* barra inferior */
+
 .handle-bottom {
 
   height: 20px;
@@ -35,6 +63,7 @@ body {
   line-height: 20px;
   user-select: none;
 }
+
 
 /* ========================= */
 /* CHAT */
@@ -51,12 +80,10 @@ body {
 
 .chat-frame {
 
-  height: calc(100% - 20px);
-
+  height: 100%;
   width: 125%;
 
   transform: scale(1.25);
-
   transform-origin: top left;
 
   border: none;
@@ -64,13 +91,13 @@ body {
 
 
 /* ========================= */
-/* VIEWERS NUEVAS COORDENADAS */
+/* VIEWERS NUEVA POSICION */
 /* ========================= */
 
 #viewersBox {
 
-  left: 1094px;
-  top: -11px;
+  left: 1169px;
+  top: -9px;
 
   width: 180px;
   height: 80px;
@@ -85,7 +112,7 @@ body {
 
 
 /* ========================= */
-/* ACTIVITY (SIN CAMBIOS) */
+/* ACTIVITY */
 /* ========================= */
 
 #giftsBox {
@@ -103,17 +130,18 @@ body {
 <body>
 
 
-<!-- CHAT -->
+<!-- CHAT con barra derecha -->
 
 <div class="box" id="chatBox">
-
-  <div class="handle-top">CHAT</div>
 
   <iframe class="chat-frame"
   src="https://tikfinity.zerody.one/widget/chat?cid=2833538">
   </iframe>
 
+  <div class="handle-right">CHAT</div>
+
 </div>
+
 
 
 <!-- VIEWERS -->
@@ -129,6 +157,7 @@ body {
 </div>
 
 
+
 <!-- ACTIVITY -->
 
 <div class="box" id="giftsBox">
@@ -142,14 +171,15 @@ body {
 </div>
 
 
+
 <script>
 
-/* movimiento */
+/* mover widgets */
 
 document.querySelectorAll(".box").forEach(box => {
 
   const handle =
-    box.querySelector(".handle-top") ||
+    box.querySelector(".handle-right") ||
     box.querySelector(".handle-bottom");
 
   let offsetX, offsetY, isDown = false;
@@ -184,6 +214,7 @@ document.querySelectorAll(".box").forEach(box => {
 
 </body>
 </html>
+
 
 
 
