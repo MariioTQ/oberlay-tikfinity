@@ -12,16 +12,23 @@ overflow:hidden;
 }
 
 
-/* cajas sin bordes */
+/* contenedores */
 
 .box{
 position:absolute;
 overflow:hidden;
 z-index:10;
+cursor:grab;
+}
+
+.box:active{
+cursor:grabbing;
 }
 
 
-/* CHAT FINAL */
+/* ========================= */
+/* CHAT */
+/* ========================= */
 
 #chatBox{
 
@@ -46,7 +53,9 @@ border:none;
 }
 
 
-/* VIEWERS FINAL */
+/* ========================= */
+/* VIEWERS */
+/* ========================= */
 
 #viewersBox{
 
@@ -62,13 +71,14 @@ height:81px;
 
 width:100%;
 height:100%;
-
 border:none;
 
 }
 
 
-/* ACTIVITY FINAL */
+/* ========================= */
+/* ACTIVITY */
+/* ========================= */
 
 #giftsBox{
 
@@ -85,7 +95,7 @@ height:594px;
 <body>
 
 
-<!-- CHAT -->
+<!-- CHAT (movible en vivo) -->
 
 <div class="box" id="chatBox">
 
@@ -97,7 +107,7 @@ src="https://tikfinity.zerody.one/widget/chat?cid=2833538">
 
 
 
-<!-- VIEWERS -->
+<!-- VIEWERS (fijo) -->
 
 <div class="box" id="viewersBox">
 
@@ -109,7 +119,7 @@ src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538">
 
 
 
-<!-- ACTIVITY -->
+<!-- ACTIVITY (fijo) -->
 
 <div class="box" id="giftsBox">
 
@@ -120,41 +130,47 @@ src="https://tikfinity.zerody.one/widget/gifts?cid=2833538">
 </div>
 
 
-</body>
-</html>
-
-
 
 <script>
 
-document.querySelectorAll(".box").forEach(box=>{
+/* mover chat en tiempo real */
 
-const handle=
-box.querySelector(".handle-right")||
-box.querySelector(".handle-bottom");
+const chatBox = document.getElementById("chatBox");
 
-let isDown=false;
-let offsetX,offsetY;
+let isDragging = false;
+let startX, startY;
+let initialLeft, initialTop;
 
-handle.addEventListener("mousedown",e=>{
+chatBox.addEventListener("mousedown", (e) => {
 
-isDown=true;
+  isDragging = true;
 
-offsetX=e.clientX-box.offsetLeft;
-offsetY=e.clientY-box.offsetTop;
+  startX = e.clientX;
+  startY = e.clientY;
+
+  initialLeft = chatBox.offsetLeft;
+  initialTop = chatBox.offsetTop;
+
+  document.body.style.userSelect = "none";
+
+});
+
+document.addEventListener("mouseup", () => {
+
+  isDragging = false;
+  document.body.style.userSelect = "auto";
 
 });
 
-document.addEventListener("mouseup",()=>isDown=false);
+document.addEventListener("mousemove", (e) => {
 
-document.addEventListener("mousemove",e=>{
+  if (!isDragging) return;
 
-if(!isDown)return;
+  const deltaX = e.clientX - startX;
+  const deltaY = e.clientY - startY;
 
-box.style.left=(e.clientX-offsetX)+"px";
-box.style.top=(e.clientY-offsetY)+"px";
-
-});
+  chatBox.style.left = (initialLeft + deltaX) + "px";
+  chatBox.style.top = (initialTop + deltaY) + "px";
 
 });
 
@@ -162,6 +178,7 @@ box.style.top=(e.clientY-offsetY)+"px";
 
 </body>
 </html>
+
 
 
 
