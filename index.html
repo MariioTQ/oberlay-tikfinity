@@ -11,9 +11,7 @@ body {
   overflow: hidden;
 }
 
-/* ========================= */
-/* SAFE AREA 1080x1920 */
-/* ========================= */
+/* SAFE AREA */
 
 #safeArea {
 
@@ -22,8 +20,8 @@ body {
   width: 1080px;
   height: 1920px;
 
-  left: 50px;
-  top: 50px;
+  left: -1px;
+  top: -1px;
 
   border: 4px solid red;
 
@@ -32,20 +30,7 @@ body {
   z-index: 1000;
 }
 
-#safeAreaLabel {
-
-  position: absolute;
-  top: -28px;
-  left: 0;
-
-  color: red;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-/* ========================= */
 /* caja principal */
-/* ========================= */
 
 .box {
   position: absolute;
@@ -55,26 +40,11 @@ body {
   z-index: 10;
 }
 
-/* iframe base */
-iframe {
-  width: 100%;
-  border: none;
-}
+/* barras */
 
-/* barra superior */
-.handle-top {
-  height: 20px;
-  background: rgba(255,0,0,0.6);
-  cursor: move;
-  font-size: 12px;
-  color: white;
-  text-align: center;
-  line-height: 20px;
-  user-select: none;
-}
-
-/* barra inferior */
+.handle-top,
 .handle-bottom {
+
   height: 20px;
   background: rgba(255,0,0,0.6);
   cursor: move;
@@ -86,43 +56,62 @@ iframe {
 }
 
 /* ========================= */
-/* CHAT AGRANDADO 1.4x */
+/* CHAT AJUSTADO */
 /* ========================= */
+
+#chatBox {
+
+  left: -14px;
+  top: -61px;
+
+  width: 1200px;
+  height: 650px;
+}
 
 .chat-frame {
 
   height: calc(100% - 20px);
 
-  width: 140%;
-  transform: scale(1.4);
+  width: 125%;
+
+  transform: scale(1.25);
+
   transform-origin: top left;
+
+  border: none;
 }
 
-/* otros iframes */
-.normal-frame {
-  height: calc(100% - 20px);
-}
-
-/* posiciones iniciales */
-#chatBox {
-  top: 0px;
-  left: 0px;
-  width: 800px;
-  height: 300px;
-}
+/* ========================= */
+/* VIEWERS (SIN CAMBIOS) */
+/* ========================= */
 
 #viewersBox {
-  top: 10px;
-  left: 820px;
+
+  left: 957px;
+  top: 1px;
+
   width: 180px;
   height: 80px;
 }
 
+.normal-frame {
+
+  height: calc(100% - 20px);
+  width: 100%;
+  border: none;
+}
+
+/* ========================= */
+/* ACTIVITY (SIN CAMBIOS) */
+/* ========================= */
+
 #giftsBox {
-  top: 320px;
-  left: 0px;
-  width: 800px;
-  height: 600px;
+
+  left: -6px;
+  top: -229px;
+
+  width: 965px;
+  height: 593px;
 }
 
 </style>
@@ -130,46 +119,58 @@ iframe {
 
 <body>
 
-<!-- SAFE AREA GUIA -->
-<div id="safeArea">
-  <div id="safeAreaLabel">SAFE AREA 1080 × 1920</div>
-</div>
+
+<div id="safeArea"></div>
 
 
 <!-- CHAT -->
+
 <div class="box" id="chatBox">
+
   <div class="handle-top">CHAT</div>
+
   <iframe class="chat-frame"
-  src="https://tikfinity.zerody.one/widget/chat?cid=2833538"></iframe>
+  src="https://tikfinity.zerody.one/widget/chat?cid=2833538">
+  </iframe>
+
 </div>
 
 
 <!-- VIEWERS -->
+
 <div class="box" id="viewersBox">
+
   <iframe class="normal-frame"
-  src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538"></iframe>
+  src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538">
+  </iframe>
+
   <div class="handle-bottom">VIEWERS</div>
+
 </div>
 
 
 <!-- ACTIVITY -->
+
 <div class="box" id="giftsBox">
+
   <iframe class="normal-frame"
-  src="https://tikfinity.zerody.one/widget/gifts?cid=2833538"></iframe>
+  src="https://tikfinity.zerody.one/widget/gifts?cid=2833538">
+  </iframe>
+
   <div class="handle-bottom">ACTIVITY</div>
+
 </div>
 
 
 <script>
 
-/* mover widgets */
+/* movimiento */
 
 document.querySelectorAll(".box").forEach(box => {
 
-  const handleTop = box.querySelector(".handle-top");
-  const handleBottom = box.querySelector(".handle-bottom");
-
-  const handle = handleTop || handleBottom;
+  const handle =
+    box.querySelector(".handle-top") ||
+    box.querySelector(".handle-bottom");
 
   let offsetX, offsetY, isDown = false;
 
@@ -180,14 +181,12 @@ document.querySelectorAll(".box").forEach(box => {
     offsetX = e.clientX - box.offsetLeft;
     offsetY = e.clientY - box.offsetTop;
 
-    document.body.style.userSelect = "none";
   });
 
   document.addEventListener("mouseup", () => {
 
     isDown = false;
 
-    document.body.style.userSelect = "auto";
   });
 
   document.addEventListener("mousemove", e => {
@@ -196,39 +195,8 @@ document.querySelectorAll(".box").forEach(box => {
 
     box.style.left = (e.clientX - offsetX) + "px";
     box.style.top = (e.clientY - offsetY) + "px";
+
   });
-
-});
-
-
-/* mover safe area */
-
-const safeArea = document.getElementById("safeArea");
-
-let safeDown = false;
-let safeOffsetX, safeOffsetY;
-
-safeArea.addEventListener("mousedown", e => {
-
-  safeDown = true;
-
-  safeOffsetX = e.clientX - safeArea.offsetLeft;
-  safeOffsetY = e.clientY - safeArea.offsetTop;
-
-});
-
-document.addEventListener("mouseup", () => {
-
-  safeDown = false;
-
-});
-
-document.addEventListener("mousemove", e => {
-
-  if (!safeDown) return;
-
-  safeArea.style.left = (e.clientX - safeOffsetX) + "px";
-  safeArea.style.top = (e.clientY - safeOffsetY) + "px";
 
 });
 
