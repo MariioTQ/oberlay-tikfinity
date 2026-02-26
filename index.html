@@ -5,131 +5,303 @@
 
 <style>
 
-body {
-  margin: 0;
-  background: transparent;
-  overflow: hidden;
-  font-family: Arial;
+body{
+  margin:0;
+  background:transparent;
+  overflow:hidden;
+  font-family:Arial;
 }
 
 /* ========================= */
-/* MARCO 1080x1920 */
+/* MARCO GUIA 1080x1920 */
 /* ========================= */
 
-#phoneFrame {
+#phoneFrame{
 
-  position: absolute;
+  position:absolute;
 
-  width: 1080px;
-  height: 1920px;
+  width:1080px;
+  height:1920px;
 
-  left: 100px;
-  top: 50px;
+  left:100px;
+  top:50px;
 
-  box-sizing: border-box;
+  border:4px solid red;
+
+  box-sizing:border-box;
+
+  z-index:10;
 }
 
-/* bordes rojos */
+#phoneFrameLabel{
 
-.frame-edge {
+  position:absolute;
+  top:-28px;
+  left:0;
 
-  position: absolute;
-  background: rgba(255,0,0,0.6);
-  z-index: 999;
+  color:red;
+  font-weight:bold;
+  font-size:16px;
 }
 
-.edge-top,
-.edge-bottom {
+/* handles marco */
 
-  height: 12px;
-  width: 100%;
-  cursor: move;
+.frameHandle{
+
+  position:absolute;
+  background:rgba(255,0,0,0.5);
+  z-index:11;
 }
 
-.edge-left,
-.edge-right {
+.frameHandle.top,
+.frameHandle.bottom{
 
-  width: 12px;
-  height: 100%;
-  cursor: move;
+  height:14px;
+  width:100%;
+  cursor:move;
 }
 
-.edge-top { top: 0; left: 0; }
-.edge-bottom { bottom: 0; left: 0; }
-.edge-left { left: 0; top: 0; }
-.edge-right { right: 0; top: 0; }
+.frameHandle.left,
+.frameHandle.right{
 
-/* esquinas */
-
-.corner {
-
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: red;
-  cursor: move;
+  width:14px;
+  height:100%;
+  cursor:move;
 }
 
-.corner-tl { top: -4px; left: -4px; }
-.corner-tr { top: -4px; right: -4px; }
-.corner-bl { bottom: -4px; left: -4px; }
-.corner-br { bottom: -4px; right: -4px; }
+.frameHandle.top{ top:-7px; }
+.frameHandle.bottom{ bottom:-7px; }
+.frameHandle.left{ left:-7px; }
+.frameHandle.right{ right:-7px; }
 
-/* texto guía */
-
-#frameLabel {
-
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: red;
-  font-weight: bold;
-  font-size: 18px;
-  pointer-events: none;
-}
 
 
 /* ========================= */
 /* BOXES EDITABLES */
 /* ========================= */
 
-.box {
+.box{
 
-  position: absolute;
-  border: 2px solid red;
-  resize: both;
-  overflow: hidden;
+  position:absolute;
+
+  border:3px solid red;
+
+  resize:both;
+
+  overflow:hidden;
+
+  z-index:5;
 }
 
-/* handles */
+/* barras */
 
-.handle-top,
-.handle-bottom {
+.handleTop,
+.handleBottom{
 
-  height: 20px;
-  background: rgba(255,0,0,0.6);
-  color: white;
-  text-align: center;
-  cursor: move;
-  font-size: 12px;
-  line-height: 20px;
+  height:20px;
+  background:rgba(255,0,0,0.6);
+  color:white;
+  text-align:center;
+  cursor:move;
+  font-size:12px;
+  line-height:20px;
 }
 
-/* CHAT AGRANDADO */
+/* iframes */
 
-#chatFrame {
+iframe{
 
-  width: 160%;
-  height: 160%;
-  border: none;
-  transform: scale(1.6);
-  transform-origin: top left;
+  border:none;
+}
+
+/* chat escalado */
+
+.chatIframe{
+
+  width:160%;
+  height:160%;
+  transform:scale(1.6);
+  transform-origin:top left;
 }
 
 /* normal */
 
-.normalFrame {
+.normalIframe{
+
+  width:100%;
+  height:100%;
+}
+
+
+/* ========================= */
+/* POSICIONES INICIALES */
+/* ========================= */
+
+#chatBox{
+
+  left:150px;
+  top:300px;
+
+  width:800px;
+  height:600px;
+}
+
+#viewersBox{
+
+  left:850px;
+  top:100px;
+
+  width:250px;
+  height:120px;
+}
+
+#giftsBox{
+
+  left:150px;
+  top:950px;
+
+  width:800px;
+  height:600px;
+}
+
+</style>
+</head>
+
+<body>
+
+
+
+<!-- MARCO GUIA -->
+
+<div id="phoneFrame">
+
+  <div id="phoneFrameLabel">1080 x 1920 GUIDE</div>
+
+  <div class="frameHandle top"></div>
+  <div class="frameHandle bottom"></div>
+  <div class="frameHandle left"></div>
+  <div class="frameHandle right"></div>
+
+</div>
+
+
+
+<!-- CHAT -->
+
+<div class="box" id="chatBox">
+
+  <div class="handleTop">CHAT</div>
+
+  <iframe class="chatIframe"
+  src="https://tikfinity.zerody.one/widget/chat?cid=2833538">
+  </iframe>
+
+</div>
+
+
+
+<!-- VIEWERS -->
+
+<div class="box" id="viewersBox">
+
+  <iframe class="normalIframe"
+  src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538">
+  </iframe>
+
+  <div class="handleBottom">VIEWERS</div>
+
+</div>
+
+
+
+<!-- ACTIVITY -->
+
+<div class="box" id="giftsBox">
+
+  <iframe class="normalIframe"
+  src="https://tikfinity.zerody.one/widget/gifts?cid=2833538">
+  </iframe>
+
+  <div class="handleBottom">ACTIVITY</div>
+
+</div>
+
+
+
+<script>
+
+/* ========================= */
+/* MOVER CAJAS */
+/* ========================= */
+
+function makeMovable(box, handleSelector){
+
+  const handle = box.querySelector(handleSelector);
+
+  let isDown=false;
+  let offsetX, offsetY;
+
+  handle.addEventListener("mousedown", e=>{
+
+    isDown=true;
+
+    offsetX=e.clientX-box.offsetLeft;
+    offsetY=e.clientY-box.offsetTop;
+
+  });
+
+  document.addEventListener("mouseup", ()=>isDown=false);
+
+  document.addEventListener("mousemove", e=>{
+
+    if(!isDown)return;
+
+    box.style.left=(e.clientX-offsetX)+"px";
+    box.style.top=(e.clientY-offsetY)+"px";
+
+  });
+}
+
+
+makeMovable(chatBox,".handleTop");
+makeMovable(viewersBox,".handleBottom");
+makeMovable(giftsBox,".handleBottom");
+
+
+
+/* ========================= */
+/* MOVER MARCO */
+/* ========================= */
+
+let frame=document.getElementById("phoneFrame");
+
+let frameDown=false;
+let frameOffsetX, frameOffsetY;
+
+frame.addEventListener("mousedown", e=>{
+
+  frameDown=true;
+
+  frameOffsetX=e.clientX-frame.offsetLeft;
+  frameOffsetY=e.clientY-frame.offsetTop;
+
+});
+
+document.addEventListener("mouseup", ()=>frameDown=false);
+
+document.addEventListener("mousemove", e=>{
+
+  if(!frameDown)return;
+
+  frame.style.left=(e.clientX-frameOffsetX)+"px";
+  frame.style.top=(e.clientY-frameOffsetY)+"px";
+
+});
+
+</script>
+
+</body>
+</html>
 
   width: 100%;
   height: 100%;
@@ -279,6 +451,7 @@ document.addEventListener("mousemove", e => {
 
 </body>
 </html>
+
 
 
 
