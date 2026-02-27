@@ -9,12 +9,16 @@ body{
 margin:0;
 background:transparent;
 overflow:hidden;
+font-family:Arial;
 }
 
-/* contenedor */
+/* ========================= */
+/* CAJAS CON BORDES ROJOS */
+/* ========================= */
 
 .box{
 position:absolute;
+border:2px solid red;
 overflow:hidden;
 z-index:10;
 }
@@ -33,7 +37,7 @@ height:729px;
 
 }
 
-/* iframe */
+/* iframe escalado */
 
 .chat-frame{
 
@@ -55,28 +59,23 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-cursor:grab;
+cursor:move;
 z-index:20;
 background:transparent;
 }
 
-#dragLayer:active{
-cursor:grabbing;
-}
-
-/* esquina para redimensionar */
+/* esquina resize */
 
 #resizeHandle{
 position:absolute;
-width:20px;
-height:20px;
+width:18px;
+height:18px;
 right:0;
 bottom:0;
-background:rgba(255,0,0,0.8);
+background:red;
 cursor:nwse-resize;
 z-index:30;
 }
-
 
 /* ========================= */
 /* VIEWERS */
@@ -89,13 +88,6 @@ width:185px;
 height:81px;
 }
 
-.normal-frame{
-width:100%;
-height:100%;
-border:none;
-}
-
-
 /* ========================= */
 /* ACTIVITY */
 /* ========================= */
@@ -105,6 +97,12 @@ left:-9px;
 top:-323px;
 width:723px;
 height:594px;
+}
+
+.normal-frame{
+width:100%;
+height:100%;
+border:none;
 }
 
 </style>
@@ -150,13 +148,16 @@ const chatBox = document.getElementById("chatBox");
 const dragLayer = document.getElementById("dragLayer");
 const resizeHandle = document.getElementById("resizeHandle");
 
+let isDragging=false;
+let isResizing=false;
+
+let startX,startY;
+let startLeft,startTop;
+let startWidth,startHeight;
+
 /* ========================= */
 /* MOVER */
 /* ========================= */
-
-let isDragging=false;
-let startX,startY;
-let startLeft,startTop;
 
 dragLayer.addEventListener("mousedown",(e)=>{
 
@@ -202,13 +203,9 @@ chatBox.style.height=(startHeight+dy)+"px";
 
 });
 
-
 /* ========================= */
 /* REDIMENSIONAR */
 /* ========================= */
-
-let isResizing=false;
-let startWidth,startHeight;
 
 resizeHandle.addEventListener("mousedown",(e)=>{
 
@@ -228,6 +225,7 @@ e.stopPropagation();
 
 </body>
 </html>
+
 
 
 
