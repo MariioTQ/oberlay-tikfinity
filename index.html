@@ -9,12 +9,9 @@ body{
 margin:0;
 background:transparent;
 overflow:hidden;
-font-family:Arial;
 }
 
-/* ========================= */
-/* CAJAS CON BORDES ROJOS */
-/* ========================= */
+/* cajas */
 
 .box{
 position:absolute;
@@ -23,36 +20,24 @@ overflow:hidden;
 z-index:10;
 }
 
-/* ========================= */
-/* CHAT */
-/* ========================= */
+/* ================= CHAT ================= */
 
 #chatBox{
-
-left:-3px;
-top:198px;
-
+left:-18px;
+top:-9px;
 width:935px;
 height:729px;
-
 }
 
-/* iframe escalado */
-
 .chat-frame{
-
 width:130%;
 height:100%;
-
 transform:scale(1.3);
 transform-origin:top left;
-
 border:none;
-
 }
 
 /* capa para mover */
-
 #dragLayer{
 position:absolute;
 top:0;
@@ -64,8 +49,7 @@ z-index:20;
 background:transparent;
 }
 
-/* esquina resize */
-
+/* esquina para resize */
 #resizeHandle{
 position:absolute;
 width:18px;
@@ -77,9 +61,7 @@ cursor:nwse-resize;
 z-index:30;
 }
 
-/* ========================= */
-/* VIEWERS */
-/* ========================= */
+/* ================= VIEWERS ================= */
 
 #viewersBox{
 left:723px;
@@ -88,9 +70,7 @@ width:185px;
 height:81px;
 }
 
-/* ========================= */
-/* ACTIVITY */
-/* ========================= */
+/* ================= ACTIVITY ================= */
 
 #giftsBox{
 left:-9px;
@@ -155,9 +135,7 @@ let startX,startY;
 let startLeft,startTop;
 let startWidth,startHeight;
 
-/* ========================= */
-/* MOVER */
-/* ========================= */
+/* mover */
 
 dragLayer.addEventListener("mousedown",(e)=>{
 
@@ -203,9 +181,7 @@ chatBox.style.height=(startHeight+dy)+"px";
 
 });
 
-/* ========================= */
-/* REDIMENSIONAR */
-/* ========================= */
+/* resize */
 
 resizeHandle.addEventListener("mousedown",(e)=>{
 
@@ -225,6 +201,7 @@ e.stopPropagation();
 
 </body>
 </html>
+
 
 
 
