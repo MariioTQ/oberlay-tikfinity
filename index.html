@@ -4,202 +4,44 @@
 <meta charset="UTF-8">
 
 <style>
-
-body{
-margin:0;
-background:transparent;
-overflow:hidden;
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
 }
 
-/* cajas */
-
-.box{
-position:absolute;
-overflow:hidden;
-z-index:10;
+/* Contenedor principal ocupa todo el espacio disponible */
+#chatContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
 }
 
-/* ================= CHAT ================= */
-
-#chatBox{
-left:-18px;
-top:-9px;
-width:935px;
-height:729px;
+/* El iframe se adapta completamente */
+#chatFrame {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border: none;
 }
-
-.chat-frame{
-width:130%;
-height:100%;
-transform:scale(1.3);
-transform-origin:top left;
-border:none;
-}
-
-/* capa para mover */
-#dragLayer{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-cursor:move;
-z-index:20;
-background:transparent;
-}
-
-/* esquina para resize */
-#resizeHandle{
-position:absolute;
-width:18px;
-height:18px;
-right:0;
-bottom:0;
-background:red;
-cursor:nwse-resize;
-z-index:30;
-}
-
-/* ================= VIEWERS ================= */
-
-#viewersBox{
-left:723px;
-top:0px;
-width:185px;
-height:81px;
-}
-
-/* ================= ACTIVITY ================= */
-
-#giftsBox{
-left:-9px;
-top:-323px;
-width:723px;
-height:594px;
-}
-
-.normal-frame{
-width:100%;
-height:100%;
-border:none;
-}
-
 </style>
 </head>
+
 <body>
 
-
-<!-- CHAT -->
-
-<div class="box" id="chatBox">
-
-<iframe class="chat-frame"
-src="https://tikfinity.zerody.one/widget/chat?cid=2833538">
-</iframe>
-
-<div id="dragLayer"></div>
-<div id="resizeHandle"></div>
-
+<div id="chatContainer">
+  <iframe 
+    id="chatFrame"
+    src="https://tikfinity.zerody.one/widget/chat?cid=2833538">
+  </iframe>
 </div>
-
-
-<!-- VIEWERS -->
-
-<div class="box" id="viewersBox">
-<iframe class="normal-frame"
-src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538">
-</iframe>
-</div>
-
-
-<!-- ACTIVITY -->
-
-<div class="box" id="giftsBox">
-<iframe class="normal-frame"
-src="https://tikfinity.zerody.one/widget/gifts?cid=2833538">
-</iframe>
-</div>
-
-
-<script>
-
-const chatBox = document.getElementById("chatBox");
-const dragLayer = document.getElementById("dragLayer");
-const resizeHandle = document.getElementById("resizeHandle");
-
-let isDragging=false;
-let isResizing=false;
-
-let startX,startY;
-let startLeft,startTop;
-let startWidth,startHeight;
-
-/* mover */
-
-dragLayer.addEventListener("mousedown",(e)=>{
-
-isDragging=true;
-
-startX=e.clientX;
-startY=e.clientY;
-
-startLeft=chatBox.offsetLeft;
-startTop=chatBox.offsetTop;
-
-document.body.style.userSelect="none";
-
-});
-
-document.addEventListener("mouseup",()=>{
-isDragging=false;
-isResizing=false;
-document.body.style.userSelect="auto";
-});
-
-document.addEventListener("mousemove",(e)=>{
-
-if(isDragging){
-
-let dx=e.clientX-startX;
-let dy=e.clientY-startY;
-
-chatBox.style.left=(startLeft+dx)+"px";
-chatBox.style.top=(startTop+dy)+"px";
-
-}
-
-if(isResizing){
-
-let dx=e.clientX-startX;
-let dy=e.clientY-startY;
-
-chatBox.style.width=(startWidth+dx)+"px";
-chatBox.style.height=(startHeight+dy)+"px";
-
-}
-
-});
-
-/* resize */
-
-resizeHandle.addEventListener("mousedown",(e)=>{
-
-isResizing=true;
-
-startX=e.clientX;
-startY=e.clientY;
-
-startWidth=chatBox.offsetWidth;
-startHeight=chatBox.offsetHeight;
-
-e.stopPropagation();
-
-});
-
-</script>
 
 </body>
 </html>
+
 
 
 
