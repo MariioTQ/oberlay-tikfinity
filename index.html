@@ -19,24 +19,27 @@ html, body {
 #topBar {
   display: flex;
   width: 100%;
-  height: 120px;
+  height: 110px;
 }
 
-/* ACTIVITY ahora a la izquierda */
+/* ACTIVITY IZQUIERDA (más comprimido) */
 #giftsBox {
-  flex: 1;
+  flex: 0 0 75%;   /* solo ocupa 75% del ancho */
   height: 100%;
+  overflow: hidden;
 }
 
 #giftsBox iframe {
-  width: 100%;
+  width: 120%;     /* expandimos para compensar recorte */
   height: 100%;
   border: none;
+  transform: scale(0.9);   /* comprimimos ligeramente */
+  transform-origin: left center;
 }
 
-/* VIEWERS ahora a la derecha */
+/* VIEWERS DERECHA */
 #viewersBox {
-  width: 200px;
+  flex: 0 0 25%;
   height: 100%;
 }
 
@@ -54,12 +57,12 @@ html, body {
   position: relative;
 }
 
-/* ESCALA DEL CHAT */
+/* CHAT MÁS GRANDE */
 #chatFrame {
-  width: 125%;        /* más ancho para compensar el zoom */
-  height: 125%;       /* más alto */
+  width: 140%;
+  height: 140%;
   border: none;
-  transform: scale(1.25);
+  transform: scale(1.4);
   transform-origin: top left;
 }
 </style>
@@ -67,22 +70,18 @@ html, body {
 
 <body>
 
-<!-- ZONA SUPERIOR -->
 <div id="topBar">
 
-  <!-- ACTIVITY IZQUIERDA -->
   <div id="giftsBox">
     <iframe src="https://tikfinity.zerody.one/widget/gifts?cid=2833538"></iframe>
   </div>
 
-  <!-- VIEWERS DERECHA -->
   <div id="viewersBox">
     <iframe src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538"></iframe>
   </div>
 
 </div>
 
-<!-- CHAT -->
 <div id="chatContainer">
   <iframe 
     id="chatFrame"
