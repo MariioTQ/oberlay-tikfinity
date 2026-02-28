@@ -11,18 +11,48 @@ html, body {
   height: 100%;
   background: transparent;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Contenedor principal ocupa todo el espacio disponible */
-#chatContainer {
+/* ===== ZONA SUPERIOR FIJA ===== */
+#topBar {
+  display: flex;
+  width: 100%;
+  height: 120px; /* puedes ajustar este alto */
+}
+
+/* viewers */
+#viewersBox {
+  width: 200px;
+  height: 100%;
+}
+
+#viewersBox iframe {
   width: 100%;
   height: 100%;
-  display: flex;
+  border: none;
 }
 
-/* El iframe se adapta completamente */
-#chatFrame {
+/* activity */
+#giftsBox {
   flex: 1;
+  height: 100%;
+}
+
+#giftsBox iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ===== CHAT DINÁMICO ===== */
+#chatContainer {
+  flex: 1; /* ocupa todo el espacio restante */
+  width: 100%;
+}
+
+#chatContainer iframe {
   width: 100%;
   height: 100%;
   border: none;
@@ -32,15 +62,27 @@ html, body {
 
 <body>
 
+<!-- ZONA SUPERIOR -->
+<div id="topBar">
+
+  <div id="viewersBox">
+    <iframe src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538"></iframe>
+  </div>
+
+  <div id="giftsBox">
+    <iframe src="https://tikfinity.zerody.one/widget/gifts?cid=2833538"></iframe>
+  </div>
+
+</div>
+
+<!-- CHAT -->
 <div id="chatContainer">
-  <iframe 
-    id="chatFrame"
-    src="https://tikfinity.zerody.one/widget/chat?cid=2833538">
-  </iframe>
+  <iframe src="https://tikfinity.zerody.one/widget/chat?cid=2833538"></iframe>
 </div>
 
 </body>
 </html>
+
 
 
 
