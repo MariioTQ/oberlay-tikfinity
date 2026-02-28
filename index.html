@@ -19,27 +19,24 @@ html, body {
 #topBar {
   display: flex;
   width: 100%;
-  height: 110px;
+  height: 120px;
 }
 
-/* ACTIVITY IZQUIERDA (más comprimido) */
+/* ACTIVITY IZQUIERDA */
 #giftsBox {
-  flex: 0 0 75%;   /* solo ocupa 75% del ancho */
+  flex: 1;
   height: 100%;
-  overflow: hidden;
 }
 
 #giftsBox iframe {
-  width: 120%;     /* expandimos para compensar recorte */
+  width: 100%;
   height: 100%;
   border: none;
-  transform: scale(0.9);   /* comprimimos ligeramente */
-  transform-origin: left center;
 }
 
 /* VIEWERS DERECHA */
 #viewersBox {
-  flex: 0 0 25%;
+  width: 200px;
   height: 100%;
 }
 
@@ -57,12 +54,12 @@ html, body {
   position: relative;
 }
 
-/* CHAT MÁS GRANDE */
+/* ZOOM 1.50 */
 #chatFrame {
-  width: 140%;
-  height: 140%;
+  width: 150%;
+  height: 150%;
   border: none;
-  transform: scale(1.4);
+  transform: scale(1.5);
   transform-origin: top left;
 }
 </style>
@@ -91,6 +88,7 @@ html, body {
 
 </body>
 </html>
+
 
 
 
