@@ -15,16 +15,6 @@ html, body {
   flex-direction: column;
 }
 
-/* ===== OVERLAY NOCTURNO ===== */
-#nightOverlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.35);
-  pointer-events: none;
-  z-index: 999;
-}
-
 /* ===== ZONA SUPERIOR FIJA ===== */
 #topBar {
   display: flex;
@@ -35,8 +25,8 @@ html, body {
   position: relative;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.55) 0%,
-    rgba(0, 0, 0, 0.35) 80%,
+    rgba(0, 0, 0, 0.60) 0%,
+    rgba(0, 0, 0, 0.40) 80%,
     rgba(0, 0, 0, 0) 100%
   );
 }
@@ -95,6 +85,8 @@ html, body {
   width: 100%;
   overflow: hidden;
   position: relative;
+  /* Fondo oscuro para que los mensajes del chat se lean bien */
+  background: rgba(0, 0, 0, 0.45);
 }
 
 #chatFrame {
@@ -107,29 +99,10 @@ html, body {
   transform: scale(2);
   transform-origin: top left;
 }
-
-/* ===== BADGE MODO NOCHE ===== */
-#nightBadge {
-  display: none;
-  position: fixed;
-  bottom: 8px;
-  right: 8px;
-  background: rgba(0, 0, 0, 0.6);
-  color: rgba(255, 200, 60, 0.95);
-  font-size: 11px;
-  font-family: monospace;
-  padding: 3px 8px;
-  border-radius: 10px;
-  z-index: 1000;
-  pointer-events: none;
-}
 </style>
 </head>
 
 <body>
-
-<div id="nightOverlay"></div>
-<div id="nightBadge">🌙 modo noche</div>
 
 <div id="topBar">
   <div id="giftsBox">
@@ -149,44 +122,5 @@ html, body {
   </iframe>
 </div>
 
-<script>
-  // Modo nocturno automático — activo entre 8pm y 6am
-  function checkNightMode() {
-    const hora = new Date().getHours();
-    const esNoche = hora >= 20 || hora < 6;
-    document.getElementById('nightOverlay').style.display = esNoche ? 'block' : 'none';
-    document.getElementById('nightBadge').style.display   = esNoche ? 'block' : 'none';
-  }
-
-  checkNightMode();
-  setInterval(checkNightMode, 5 * 60 * 1000); // revisa cada 5 minutos
-</script>
-
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
