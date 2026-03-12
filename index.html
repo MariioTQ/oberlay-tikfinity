@@ -15,14 +15,30 @@ html, body {
   flex-direction: column;
 }
 
+/* ===== OVERLAY NOCTURNO ===== */
+#nightOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  z-index: 999;
+}
+
 /* ===== ZONA SUPERIOR FIJA ===== */
 #topBar {
   display: flex;
   width: 100%;
-  height: 150px; /* antes 120px, un poquito más alto */
+  height: 150px;
   flex-shrink: 0;
   overflow: hidden;
   position: relative;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.35) 80%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 /* ACTIVITY IZQUIERDA */
@@ -57,6 +73,22 @@ html, body {
   border: none;
 }
 
+/* ===== SEPARADOR ===== */
+#separator {
+  width: 100%;
+  height: 3px;
+  flex-shrink: 0;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 60, 80, 0.7) 20%,
+    rgba(255, 60, 80, 0.95) 50%,
+    rgba(255, 60, 80, 0.7) 80%,
+    transparent 100%
+  );
+  box-shadow: 0 0 8px rgba(255, 60, 80, 0.5);
+}
+
 /* ===== CHAT DINÁMICO ===== */
 #chatContainer {
   flex: 1;
@@ -75,22 +107,40 @@ html, body {
   transform: scale(2);
   transform-origin: top left;
 }
+
+/* ===== BADGE MODO NOCHE ===== */
+#nightBadge {
+  display: none;
+  position: fixed;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 200, 60, 0.95);
+  font-size: 11px;
+  font-family: monospace;
+  padding: 3px 8px;
+  border-radius: 10px;
+  z-index: 1000;
+  pointer-events: none;
+}
 </style>
 </head>
 
 <body>
 
-<div id="topBar">
+<div id="nightOverlay"></div>
+<div id="nightBadge">🌙 modo noche</div>
 
+<div id="topBar">
   <div id="giftsBox">
     <iframe src="https://tikfinity.zerody.one/widget/gifts?cid=2833538"></iframe>
   </div>
-
   <div id="viewersBox">
     <iframe src="https://tikfinity.zerody.one/widget/viewercount?cid=2833538"></iframe>
   </div>
-
 </div>
+
+<div id="separator"></div>
 
 <div id="chatContainer">
   <iframe 
@@ -99,8 +149,23 @@ html, body {
   </iframe>
 </div>
 
+<script>
+  // Modo nocturno automático — activo entre 8pm y 6am
+  function checkNightMode() {
+    const hora = new Date().getHours();
+    const esNoche = hora >= 20 || hora < 6;
+    document.getElementById('nightOverlay').style.display = esNoche ? 'block' : 'none';
+    document.getElementById('nightBadge').style.display   = esNoche ? 'block' : 'none';
+  }
+
+  checkNightMode();
+  setInterval(checkNightMode, 5 * 60 * 1000); // revisa cada 5 minutos
+</script>
+
 </body>
 </html>
+
+
 
 
 
